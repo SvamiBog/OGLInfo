@@ -14,10 +14,17 @@ NEWSPIDER_MODULE = "oglinfo_scraper.spiders"
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = "oglinfo_scraper (+http://www.yourdomain.com)"
+USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) ' \
+             'Chrome/98.0.4758.109 Safari/537.36 OPR/84.0.4316.50'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
+
+# Loging setting
+LOG_ENABLED = True
+LOGSTATS_INTERVAL = 10
+LOG_SHORT_NAMES = True
+LOG_LEVEL = 'INFO'
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -62,9 +69,13 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    "oglinfo_scraper.pipelines.OglinfoScraperPipeline": 300,
-#}
+ITEM_PIPELINES = {
+    'oglinfo_scraper.pipelines.OtomotoScraperPipeline': 300,
+}
+
+RETRY_TIMES = 5  # Количество повторных попыток запроса
+REDIRECT_ENABLED = False
+
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
