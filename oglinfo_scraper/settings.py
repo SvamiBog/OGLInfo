@@ -74,7 +74,7 @@ ITEM_PIPELINES = {
 }
 
 RETRY_TIMES = 5  # Количество повторных попыток запроса
-REDIRECT_ENABLED = False
+REDIRECT_ENABLED = True
 
 
 # Enable and configure the AutoThrottle extension (disabled by default)

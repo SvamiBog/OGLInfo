@@ -1,6 +1,6 @@
-from sqlmodel import SQLModel, Field
+from sqlmodel import SQLModel, Field, Relationship
 from datetime import datetime
-from typing import Optional
+from typing import Optional, List
 
 
 class AutoAd(SQLModel, table=True):
@@ -18,7 +18,6 @@ class AutoAd(SQLModel, table=True):
     model: Optional[str] = None  # Модель
     year: Optional[int] = None  # Год выпуска
     mileage: Optional[int] = None  # Пробег
-    mileage_unit: Optional[str] = None  # Единица измерения пробега (км, миль)
     fuel: Optional[str] = None  # Тип топлива
     transmission: Optional[str] = None  # Трансмиссия
     drive: Optional[str] = None  # Привод
@@ -34,3 +33,18 @@ class AutoAd(SQLModel, table=True):
     condition: Optional[str] = None  # Состояние (новый, подержанный)
     platform: Optional[str] = None  # Ресурс размещения объявления (Otomoto, Mobile.de)
     sold_at: Optional[datetime] = None  # Дата продажи (или исчезновения объявления)
+
+    # Связь с историей изменений
+    history: List["AutoAdHistory"] = Relationship(back_populates="auto_ad")
+
+
+class AutoAdHistory(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)  # Уникальный ID
+    auto_ad_id: int = Field(foreign_key="autoad.id")  # Внешний ключ на AutoAd
+    timestamp: datetime = Field(default_factory=datetime.utcnow)  # Дата и время изменения
+    price: Optional[float] = None  # Цена
+    currency: Optional[str] = None  # Валюта
+    status: Optional[str] = None  # Статус (например, "active", "sold", "removed")
+
+    # Связь с объявлением
+    auto_ad: AutoAd = Relationship(back_populates="history")

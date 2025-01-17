@@ -22,7 +22,6 @@ class OtomotoScraperPipeline:
                     model=item.get('model'),
                     year=item.get('year'),
                     mileage=item.get('mileage'),
-                    mileage_unit=item.get('mileage_unit'),
                     fuel=item.get('fuel'),
                     transmission=item.get('transmission'),
                     drive=item.get('drive'),

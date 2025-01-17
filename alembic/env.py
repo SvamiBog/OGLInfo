@@ -1,10 +1,10 @@
 from logging.config import fileConfig
 from sqlalchemy import engine_from_config, pool
 from sqlmodel import SQLModel
-from database.models import AutoAd  # Импортируй свои модели
 import os
 from dotenv import load_dotenv
 from alembic import context
+from database.models import AutoAd, AutoAdHistory
 
 # Загружаем переменные окружения из файла .env
 load_dotenv()
