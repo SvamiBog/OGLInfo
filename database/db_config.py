@@ -1,5 +1,7 @@
-from sqlmodel import SQLModel, create_engine, Session
+from sqlmodel import create_engine, Session
+from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv
+from contextlib import contextmanager
 import os
 
 # Загружаем переменные окружения из .env
@@ -14,8 +16,17 @@ if not DATABASE_URL:
 
 # Создаём подключение к базе данных
 engine = create_engine(DATABASE_URL)
+Session = sessionmaker(bind=engine)
 
 # Функция для получения сессии
+@contextmanager
 def get_session():
-    with Session(engine) as session:
+    session = Session()
+    try:
         yield session
+        session.commit()
+    except Exception as e:
+        session.rollback()
+        raise e
+    finally:
+        session.close()

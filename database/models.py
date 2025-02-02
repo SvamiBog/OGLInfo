@@ -6,11 +6,12 @@ from typing import Optional, List
 class AutoAd(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)  # Уникальный ID
     title: str  # Заголовок объявления
-    price: Optional[float] = None  # Цена
+    price: Optional[int] = None  # Цена
     currency: Optional[str] = None  # Валюта (PLN, EUR и т.д.)
     location: Optional[str] = None  # Местоположение
     country: Optional[str] = None  # Страна продажи авто
     url: str = Field(unique=True, index=True)  # Уникальная ссылка
+    data_id: str = Field(unique=True, index=True)  # Уникальный идентификатор объявления (data-id)
     created_at: datetime = Field(default_factory=datetime.utcnow)  # Дата добавления объявления
 
     # Детали автомобиля
@@ -42,7 +43,7 @@ class AutoAdHistory(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)  # Уникальный ID
     auto_ad_id: int = Field(foreign_key="autoad.id")  # Внешний ключ на AutoAd
     timestamp: datetime = Field(default_factory=datetime.utcnow)  # Дата и время изменения
-    price: Optional[float] = None  # Цена
+    price: Optional[int] = None  # Цена
     currency: Optional[str] = None  # Валюта
     status: Optional[str] = None  # Статус (например, "active", "sold", "removed")
 
