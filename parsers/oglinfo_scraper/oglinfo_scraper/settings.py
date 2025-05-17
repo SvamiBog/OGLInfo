@@ -70,7 +70,7 @@ LOG_LEVEL = 'INFO'
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'oglinfo_scraper.pipelines.OtomotoScraperPipeline': 300,
+    'oglinfo_scraper.pipelines.OtomotoPipeline': 300,
 }
 
 RETRY_TIMES = 5  # Количество повторных попыток запроса
